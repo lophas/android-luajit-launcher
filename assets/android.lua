@@ -2487,6 +2487,22 @@ local function run(android_app_state)
         end)
     end
 
+    android.disableWifi = function()
+        return JNI:context(android.app.activity.vm, function(jni)
+            return jni:callBooleanMethod(
+                android.app.activity.clazz, "disableWifi", "()Z"
+            )
+        end)
+    end
+
+    android.isWifiEnabled = function()
+        return JNI:context(android.app.activity.vm, function(jni)
+            return jni:callBooleanMethod(
+                android.app.activity.clazz, "isWifiEnabled", "()Z"
+            )
+        end)
+    end
+
     android.openWifiSettings = function()
         android.DEBUG("open android settings")
         JNI:context(android.app.activity.vm, function(jni)

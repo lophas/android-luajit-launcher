@@ -644,6 +644,26 @@ class MainActivity : NativeActivity(), LuaInterface,
         }
     }
 
+    @Suppress("DEPRECATION")
+    override fun disableWifi(): Boolean {
+        return try {
+            val manager = applicationContext.getSystemService(
+                android.content.Context.WIFI_SERVICE
+            ) as android.net.wifi.WifiManager
+            !manager.isWifiEnabled || manager.setWifiEnabled(false)
+        } catch (e: Exception) {
+            android.util.Log.e("KOReaderWifi", "Wi-Fi disable failed", e)
+            false
+        }
+    }
+
+    override fun isWifiEnabled(): Boolean {
+        val manager = applicationContext.getSystemService(
+            android.content.Context.WIFI_SERVICE
+        ) as android.net.wifi.WifiManager
+        return manager.isWifiEnabled
+    }
+
     override fun openWifiSettings() {
         openWifi()
     }
