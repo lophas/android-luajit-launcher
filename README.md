@@ -1,3 +1,37 @@
+# Android Wi-Fi control fork
+
+Companion launcher for
+[lophas/koreader](https://github.com/lophas/koreader/tree/android-wifi-control).
+The changes are on the `android-wifi-control` branch.
+
+## Differences from upstream
+
+- `openWifi()` attempts to enable Wi-Fi directly with
+  `WifiManager.setWifiEnabled(true)`. It opens Android Wi-Fi settings
+  only if the direct request fails.
+- Adds dedicated `disableWifi()` and `isWifiEnabled()` methods,
+  exposed to Lua through JNI.
+- Uses `targetSdk = 28` for the direct Wi-Fi control approach.
+- Adds `ACCESS_WIFI_STATE` and `CHANGE_WIFI_STATE`.
+- Removes the maximum SDK restriction from the legacy external-storage
+  permission declarations.
+
+The companion KOReader fork implements the completion policy:
+**Leave on**, **Turn off**, or **Prompt** after a KOSync operation
+for which KOReader initiated the connection.
+
+## Tested environment and limitations
+
+User-tested on a BOOX Go 7 running Android 13.
+This is a device-tested compatibility approach, not a guarantee of
+direct Wi-Fi control on every Android device.
+The lower target SDK is intentional and affects Android compatibility behavior.
+
+Build and sign through the companion KOReader project. Keep the signing
+key private and reuse it for subsequent updates.
+
+---
+
 # android-luajit-launcher
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
