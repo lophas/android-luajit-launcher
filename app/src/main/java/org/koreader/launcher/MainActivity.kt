@@ -650,7 +650,11 @@ class MainActivity : NativeActivity(), LuaInterface,
             val manager = applicationContext.getSystemService(
                 android.content.Context.WIFI_SERVICE
             ) as android.net.wifi.WifiManager
-            !manager.isWifiEnabled || manager.setWifiEnabled(false)
+            if (manager.isWifiEnabled) {
+                manager.setWifiEnabled(false)
+            } else {
+                true
+            }
         } catch (e: Exception) {
             android.util.Log.e("KOReaderWifi", "Wi-Fi disable failed", e)
             false
