@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
+import android.net.wifi.WifiManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -184,7 +185,17 @@ fun Activity.quickdicAction(text: String) {
     startDictionaryActivity(this, quickdicIntent)
 }
 
+@Suppress("DEPRECATION")
 fun Activity.openWifi() {
+    try {
+        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE)
+            as WifiManager
+        if (wifiManager.isWifiEnabled) return
+        if (wifiManager.setWifiEnabled(true)) return
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
     val openWifiIntent = Intent().apply {
         action = Settings.ACTION_WIFI_SETTINGS
     }

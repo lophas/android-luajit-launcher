@@ -1,6 +1,6 @@
 buildscript {
     ext.compileSdk = 30
-    ext.targetSdk = 30
+    ext.targetSdk = 28
     ext.minSdk = 18
 
     ext.gradle_plugin_version = '8.4.2'
